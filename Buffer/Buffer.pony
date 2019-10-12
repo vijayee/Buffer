@@ -3,19 +3,20 @@ use "collections"
 class Buffer
   let data: Array[U8]
 
-  new create(size: USize = 0) =>
-    data = Array[U8](0)
-
-  new fromArray(data': Array[U8]) =>
+  new create(data': Array[U8]) =>
     data = data'
 
-  fun apply(i: USize)? : U8 =>
+  new val fromArray(data': Array[U8] val) =>
+    data = Array[U8](data'.size())
+    data'.copy_to(data,0,0,data'.size())
+
+  fun apply(i: USize) : U8 ? =>
     data(i)?
 
-  fun ref update(i: USize, value: U8)?: U8^ =>
-    data(i) = value
+  fun ref update(i: USize, value: U8): U8^ ? =>
+    data(i)? = value
 
-  fun box compare(that: box->Buffer)? : I8 =>
+  fun box compare(that: box->Buffer): I8 ? =>
     let length: USize = if that.size() > size() then size() else that.size() end
     var a: USize = size()
     var b: USize = that.size()
@@ -55,7 +56,7 @@ class Buffer
 
   fun box ge (that: box->Buffer): Bool =>
     try
-      let i: USize = compare(that)?
+      let i: I8 = compare(that)?
       ((i == 0) or (i == 1))
     else
       false
@@ -70,11 +71,15 @@ class Buffer
 
   fun box le (that: box->Buffer): Bool =>
     try
-      let i: USize = compare(that)?
+      let i: I8 = compare(that)?
       ((i == 0) or (i == 1))
     else
       false
     end
 
-  fun size(): USize =>
+
+  fun box values() : ArrayValues[U8, this->Array[U8 val]]^ =>
+    data.values()
+
+  fun box size(): USize =>
     data.size()
