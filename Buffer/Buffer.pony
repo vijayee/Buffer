@@ -16,6 +16,18 @@ class Buffer
   fun ref update(i: USize, value: U8): U8^ ? =>
     data(i)? = value
 
+  fun ref push(value: U8) =>
+    data.push(value)
+
+  fun ref pop(): U8^ ? =>
+    data.pop()?
+
+  fun ref unshift(value: U8) =>
+    data.unshift(value)
+
+  fun ref shift(): U8 ? =>
+    data.shift()?
+
   fun box compare(that: box->Buffer): I8 ? =>
     let length: USize = if that.size() > size() then size() else that.size() end
     var a: USize = size()
