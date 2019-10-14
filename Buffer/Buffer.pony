@@ -3,7 +3,7 @@ use "collections"
 class Buffer
   let data: Array[U8]
 
-  new create(data': Array[U8]) =>
+  new create(data': Array[U8] = Array[U8](0)) =>
     data = data'
 
   new val fromArray(data': Array[U8] val) =>
