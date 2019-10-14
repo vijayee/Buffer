@@ -13,6 +13,20 @@ class Buffer
   fun apply(i: USize) : U8 ? =>
     data(i)?
 
+  fun hash(): USize =>
+    var hash' : USize = 5381
+    for num in data.values() do
+      hash' = (((hash' << 5) >> 0) + hash') + num.usize()
+    end
+    hash'
+
+  fun hash64(): U64 =>
+    var hash' : U64 = 5381
+    for num in data.values() do
+      hash' = (((hash' << 5) >> 0) + hash') + num.u64()
+    end
+    hash'
+
   fun ref update(i: USize, value: U8): U8^ ? =>
     data(i)? = value
 
