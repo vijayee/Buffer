@@ -20,6 +20,13 @@ class iso _TestBuffer is UnitTest
       t.assert_true(buf1 == buf2)
       t.assert_true(buf1 < buf3)
       t.assert_true(buf3 > buf1)
+      var i: USize = buf1.size()
+      buf1.append(buf2)
+      t.assert_true(buf1.size() > i)
+      var j: USize = 0
+      while i < buf1.size() do
+        t.assert_true((buf1(i = i + 1)? == buf2(j = j + 1)?))
+      end
     else
       t.fail("error")
     end

@@ -30,6 +30,8 @@ class Buffer
   fun ref update(i: USize, value: U8): U8^ ? =>
     data(i)? = value
 
+  fun ref append(that: Buffer box) =>
+    data.append(that.data)
   fun ref push(value: U8) =>
     data.push(value)
 
