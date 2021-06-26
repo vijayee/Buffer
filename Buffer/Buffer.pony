@@ -32,6 +32,7 @@ class Buffer
 
   fun ref append(that: Buffer box) =>
     data.append(that.data)
+
   fun ref push(value: U8) =>
     data.push(value)
 
@@ -43,6 +44,9 @@ class Buffer
 
   fun ref shift(): U8 ? =>
     data.shift()?
+
+  fun slice(from: USize = 0, to: USize = -1, step: USize = 1): Buffer^ =>
+    Buffer(data.slice(from, to, step))
 
   fun box compare(that: box->Buffer): I8 ? =>
     let length: USize = if that.size() > size() then size() else that.size() end

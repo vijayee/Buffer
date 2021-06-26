@@ -27,6 +27,9 @@ class iso _TestBuffer is UnitTest
       while i < buf1.size() do
         t.assert_true((buf1(i = i + 1)? == buf2(j = j + 1)?))
       end
+      let buf4 = buf1.slice(0, 4)
+      t.assert_true(buf4(1)? == buf1(1)?)
+      t.assert_true(buf4(3)? == buf1(3)?)
     else
       t.fail("error")
     end
