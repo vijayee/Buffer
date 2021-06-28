@@ -30,6 +30,9 @@ class iso _TestBuffer is UnitTest
       let buf4 = buf1.slice(0, 4)
       t.assert_true(buf4(1)? == buf1(1)?)
       t.assert_true(buf4(3)? == buf1(3)?)
+      let buf5: Buffer = buf2.clone()
+      t.assert_true(buf5 == buf2)
+      t.assert_false(buf5 is buf2)
     else
       t.fail("error")
     end

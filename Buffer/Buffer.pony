@@ -48,6 +48,13 @@ class Buffer
   fun slice(from: USize = 0, to: USize = -1, step: USize = 1): Buffer^ =>
     Buffer(data.slice(from, to, step))
 
+  fun clone(): Buffer iso^ =>
+    let buf = recover Buffer end
+    for i in data.values() do
+      buf.push(i)
+    end
+    consume buf
+    
   fun box compare(that: box->Buffer): I8 ? =>
     let length: USize = if that.size() > size() then size() else that.size() end
     var a: USize = size()
