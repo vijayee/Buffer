@@ -1,5 +1,17 @@
 use "collections"
 
+primitive CopyBufferRange
+  fun apply(buf: Buffer box, from: USize = 0, to: USize = -1): Buffer iso^ =>
+    let copied: Buffer iso = recover Buffer(to - from) end
+    for byte in Range(from, to) do
+      try
+        copied.push(buf(byte)?)
+      else
+        break
+      end
+    end
+    consume copied
+
 class Buffer
   let data: Array[U8]
 

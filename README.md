@@ -7,7 +7,7 @@ This is a ponylang library for NodeJS style buffers
 ```json
 {
   "locator": "github.com/vijayee/Buffer.git",
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
 ```
 

@@ -6,7 +6,7 @@
     "description": "Library that gives nodejs buffer functionality to Array[U8] data in Pony",
     "homepage": "https://github.com/vijayee/Buffer",
     "license": "GPLv3",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "name": "Buffer"
   },
   "deps": [
