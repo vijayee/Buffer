@@ -3,9 +3,13 @@ use "collections"
 class Buffer
   let data: Array[U8]
 
-  new create(data': Array[U8] = Array[U8](0)) =>
-    data = data'
-
+  new create(data': (Array[U8] | USize) = Array[U8](0)) =>
+    match data'
+      | let data'': Array[U8] =>
+        data = data''
+      | let size: USize =>
+        data = Array[U8](size)
+    end
   new val fromArray(data': Array[U8] val) =>
     data = Array[U8](data'.size())
     data'.copy_to(data,0,0,data'.size())
@@ -54,7 +58,7 @@ class Buffer
       buf.push(i)
     end
     consume buf
-    
+
   fun box compare(that: box->Buffer): I8 ? =>
     let length: USize = if that.size() > size() then size() else that.size() end
     var a: USize = size()
