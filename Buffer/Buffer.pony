@@ -4,11 +4,11 @@ class Buffer
   let data: Array[U8]
 
   new create(data': (Array[U8] | USize) = Array[U8](0)) =>
-    match data'
+    data = match data'
       | let data'': Array[U8] =>
-        data = data''
+        data''
       | let size': USize =>
-        data = Array[U8](size')
+        Array[U8](size')
     end
   new val fromArray(data': Array[U8] val) =>
     data = Array[U8](data'.size())

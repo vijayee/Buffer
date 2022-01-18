@@ -1,13 +1,13 @@
 # Buffer
 This is a ponylang library for NodeJS style buffers
 
-* Install [pony-stable](https://github.com/ponylang/pony-stable)
-* Update your `bundle.json`
+* Install [corral](https://github.com/ponylang/corral)
+* Update your `corral.json`
 
 ```json
 {
-  "type": "github",
-  "repo": "vijayee/Buffer"
+  "locator": "github.com/vijayee/Buffer.git",
+  "version": "0.0.5"
 }
 ```
 
