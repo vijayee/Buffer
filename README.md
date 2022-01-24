@@ -7,10 +7,9 @@ This is a ponylang library for NodeJS style buffers
 ```json
 {
   "locator": "github.com/vijayee/Buffer.git",
-  "version": "0.0.6"
+  "version": "0.0.7"
 }
 ```
 
-* `stable fetch` to fetch your dependencies
-* `use "Base58"` to include this package
-* `stable env ponyc` to compile your application
+* `corral fetch` to fetch your dependencies
+* `use "Buffer"` to include this package

@@ -13,6 +13,8 @@ class iso _TestBuffer is UnitTest
     let buf3: Buffer = Buffer(arr3)
     try
       t.log(buf1.compare(buf2)?.string())
+      t.log(buf1.hash().string())
+      t.log(buf1.hash64().string())
       t.assert_true(buf1.compare(buf2)? == 0)
       t.assert_true(buf1.compare(buf3)? == -1)
       t.assert_true(buf3.compare(buf1)? == 1)

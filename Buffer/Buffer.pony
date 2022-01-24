@@ -1,3 +1,5 @@
+use @ponyint_hash_block[USize](ptr: Pointer[None] tag, size: USize)
+use @ponyint_hash_block64[U64](ptr: Pointer[None] tag, size: USize)
 use "collections"
 
 primitive CopyBufferRange
@@ -30,18 +32,10 @@ class Buffer
     data(i)?
 
   fun hash(): USize =>
-    var hash' : USize = 5381
-    for num in data.values() do
-      hash' = (((hash' << 5) >> 0) + hash') + num.usize()
-    end
-    hash'
+    @ponyint_hash_block(data.cpointer(), data.size())
 
   fun hash64(): U64 =>
-    var hash' : U64 = 5381
-    for num in data.values() do
-      hash' = (((hash' << 5) >> 0) + hash') + num.u64()
-    end
-    hash'
+     @ponyint_hash_block64(data.cpointer(), data.size())
 
   fun ref update(i: USize, value: U8): U8^ ? =>
     data(i)? = value
