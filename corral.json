@@ -6,7 +6,7 @@
     "description": "Library that expose FFI Printing",
     "homepage": "https://github.com/vijayee/Print",
     "license": "GPLv3",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "name": "Buffer"
   },
   "deps": [

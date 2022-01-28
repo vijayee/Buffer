@@ -4,7 +4,7 @@ use "collections"
 
 primitive CopyBufferRange
   fun apply(buf: Buffer box, from: USize = 0, to: USize = -1): Buffer iso^ =>
-    let copied: Buffer iso = recover Buffer(to - from) end
+    let copied: Buffer iso = recover Buffer(if to > buf.size() then buf.size() - from else to -from end) end
     for byte in Range(from, to) do
       try
         copied.push(buf(byte)?)
@@ -40,8 +40,8 @@ class Buffer
   fun ref update(i: USize, value: U8): U8^ ? =>
     data(i)? = value
 
-  fun ref append(that: Buffer box) =>
-    data.append(that.data)
+  fun ref append(that: Buffer box, offset: USize val = 0, len: USize val = -1) =>
+    data.append(that.data, offset, len)
 
   fun ref push(value: U8) =>
     data.push(value)
@@ -132,3 +132,6 @@ class Buffer
 
   fun box size(): USize =>
     data.size()
+
+  fun ref compact() =>
+    data.compact()
