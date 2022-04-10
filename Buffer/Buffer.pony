@@ -128,7 +128,7 @@ class Buffer
 
   fun box op_xor (that: box->Buffer): Buffer val =>
     recover val
-      let len = if data.size() > that.data.size() then data.size() else that.data.size() end
+      let len: USize = if data.size() > that.data.size() then data.size() else that.data.size() end
       let data': Array[U8] = Array[U8](len)
       for i in Range(0, len) do
         data'.push(try data(i)? else U8(0) end xor try that.data(i)? else U8(0) end)
