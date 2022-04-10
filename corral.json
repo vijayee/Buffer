@@ -3,10 +3,10 @@
     "Print"
   ],
   "info": {
-    "description": "Library that expose FFI Printing",
+    "description": "Library that gives nodejs buffer functionality to Array[U8] data in Pony",
     "homepage": "https://github.com/vijayee/Print",
     "license": "GPLv3",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "name": "Buffer"
   },
   "deps": [
