@@ -132,8 +132,8 @@ class Buffer
     for i in Range(0, len) do
       data'.push(try data(i)? else U8(0) end xor try that.data(i)? else U8(0) end)
     end
-    Buffer(consume data')
-    
+    recover val Buffer(consume data') end
+
 
   fun box values() : ArrayValues[U8, this->Array[U8 val]]^ =>
     data.values()
