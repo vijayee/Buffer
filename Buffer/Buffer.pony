@@ -128,13 +128,12 @@ class Buffer
 
   fun box op_xor (that: box->Buffer): Buffer val =>
     let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
-    recover val
-      let data': Array[U8] = Array[U8](len)
-      for i in Range(0, len) do
-        data'.push(try data(i)? else U8(0) end xor try that.data(i)? else U8(0) end)
-      end
-      Buffer(data')
+    let data': Array[U8] iso = recover Array[U8](len) end
+    for i in Range(0, len) do
+      data'.push(try data(i)? else U8(0) end xor try that.data(i)? else U8(0) end)
     end
+    Buffer(consume data')
+    
 
   fun box values() : ArrayValues[U8, this->Array[U8 val]]^ =>
     data.values()
