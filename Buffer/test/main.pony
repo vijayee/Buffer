@@ -7,10 +7,14 @@ class iso _TestBuffer is UnitTest
     let arr1: Array[U8] = [1;2;3;4;5;6]
     let arr2: Array[U8] = [1;2;3;4;5;6]
     let arr3: Array[U8] = [6;7;8;9;5;6]
+    let arr4: Array[U8] = [1;1;1;1;1;1]
+    let arr5: Array[U8] = [0;0;0;0;0;0]
 
     let buf1: Buffer = Buffer(arr1)
     let buf2: Buffer = Buffer(arr2)
     let buf3: Buffer = Buffer(arr3)
+    let buf6: Buffer = Buffer(arr4)
+    let buf7: Buffer = Buffer(arr5)
     try
       t.log(buf1.compare(buf2)?.string())
       t.log(buf1.hash().string())
@@ -35,6 +39,8 @@ class iso _TestBuffer is UnitTest
       let buf5: Buffer = buf2.clone()
       t.assert_true(buf5 == buf2)
       t.assert_false(buf5 is buf2)
+      let buf8 = buf6 xor buf7
+      t.assert_true(buf8 == buf6)
     else
       t.fail("error")
     end
