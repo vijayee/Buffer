@@ -134,6 +134,29 @@ class Buffer
     end
     Buffer(consume data')
 
+  fun box op_and (that: box->Buffer): Buffer ref =>
+    let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
+    let data': Array[U8] iso = recover Array[U8](len) end
+    for i in Range(0, len) do
+      data'.push(try data(i)? else U8(0) end and try that.data(i)? else U8(0) end)
+    end
+    Buffer(consume data')
+
+  fun box op_or (that: box->Buffer): Buffer ref =>
+    let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
+    let data': Array[U8] iso = recover Array[U8](len) end
+    for i in Range(0, len) do
+      data'.push(try data(i)? else U8(0) end or try that.data(i)? else U8(0) end)
+    end
+    Buffer(consume data')
+
+  fun box op_not (): Buffer ref =>
+    let len: USize = data.size()
+    let data': Array[U8] iso = recover Array[U8](len) end
+    for i in data.values() do
+      data'.push(not i)
+    end
+    Buffer(consume data')
 
   fun box values() : ArrayValues[U8, this->Array[U8 val]]^ =>
     data.values()
@@ -143,3 +166,15 @@ class Buffer
 
   fun ref compact() =>
     data.compact()
+
+  fun string() : String =>
+    let len: USize = data.size()
+    let str: String iso = recover String(len * 2) end
+    for i in data.values() do
+      str.append(i.string())
+      str.append(",")
+    end
+    if data.size() > 0 then
+      str.delete(data.size().isize() - 1)
+    end
+    consume str

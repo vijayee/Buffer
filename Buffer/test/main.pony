@@ -16,9 +16,6 @@ class iso _TestBuffer is UnitTest
     let buf6: Buffer = Buffer(arr4)
     let buf7: Buffer = Buffer(arr5)
     try
-      t.log(buf1.compare(buf2)?.string())
-      t.log(buf1.hash().string())
-      t.log(buf1.hash64().string())
       t.assert_true(buf1.compare(buf2)? == 0)
       t.assert_true(buf1.compare(buf3)? == -1)
       t.assert_true(buf3.compare(buf1)? == 1)
@@ -41,6 +38,15 @@ class iso _TestBuffer is UnitTest
       t.assert_false(buf5 is buf2)
       let buf8 = buf6 xor buf7
       t.assert_true(buf8 == buf6)
+      let buf9 = Buffer([0;0;0;0;0;0])
+      let buf10 = Buffer([1;1;1;1;1;1;1])
+      let buf11 = buf9 and buf10
+      let buf12 = buf9 or buf10
+      let buf13 = Buffer([1;1;1;1;1;1])
+      let buf14 =  not buf13
+      t.log(buf14.string())
+      t.assert_true(buf11 == buf9)
+      t.assert_true(Buffer([254;254;254;254;254;254]) == buf14)
     else
       t.fail("error")
     end
