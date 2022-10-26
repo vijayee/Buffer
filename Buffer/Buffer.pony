@@ -55,8 +55,18 @@ class Buffer
   fun ref shift(): U8 ? =>
     data.shift()?
 
-  fun slice(from: USize = 0, to: USize = -1, step: USize = 1): Buffer^ =>
-    Buffer(data.slice(from, to, step))
+  fun ref reserve(len: USize) =>
+    data.reserve(len)
+
+  fun slice(from: USize = 0, to: USize = -1, step: USize = 1): Buffer iso^ =>
+    let buf = recover Buffer end
+    let slice' = data.slice(from, to, step)
+    buf.reserve(slice'.size())
+    for i in slice'.values() do
+      buf.push(i)
+    end
+    consume buf
+
 
   fun clone(): Buffer iso^ =>
     let buf = recover Buffer end
@@ -126,37 +136,37 @@ class Buffer
       false
     end
 
-  fun box op_xor (that: box->Buffer): Buffer ref =>
+  fun box op_xor (that: box->Buffer): Buffer iso^ =>
     let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
     let data': Array[U8] iso = recover Array[U8](len) end
     for i in Range(0, len) do
       data'.push(try data(i)? else U8(0) end xor try that.data(i)? else U8(0) end)
     end
-    Buffer(consume data')
+    recover Buffer(consume data') end
 
-  fun box op_and (that: box->Buffer): Buffer ref =>
+  fun box op_and (that: box->Buffer): Buffer iso^  =>
     let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
     let data': Array[U8] iso = recover Array[U8](len) end
     for i in Range(0, len) do
       data'.push(try data(i)? else U8(0) end and try that.data(i)? else U8(0) end)
     end
-    Buffer(consume data')
+    recover Buffer(consume data') end
 
-  fun box op_or (that: box->Buffer): Buffer ref =>
+  fun box op_or (that: box->Buffer): Buffer iso^  =>
     let len: USize = if data.size() < that.data.size() then data.size() else that.data.size() end
     let data': Array[U8] iso = recover Array[U8](len) end
     for i in Range(0, len) do
       data'.push(try data(i)? else U8(0) end or try that.data(i)? else U8(0) end)
     end
-    Buffer(consume data')
+    recover Buffer(consume data') end
 
-  fun box op_not (): Buffer ref =>
+  fun box op_not (): Buffer iso^  =>
     let len: USize = data.size()
     let data': Array[U8] iso = recover Array[U8](len) end
     for i in data.values() do
       data'.push(not i)
     end
-    Buffer(consume data')
+    recover Buffer(consume data') end
 
   fun box values() : ArrayValues[U8, this->Array[U8 val]]^ =>
     data.values()

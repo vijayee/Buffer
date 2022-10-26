@@ -30,20 +30,20 @@ class iso _TestBuffer is UnitTest
       while i < buf1.size() do
         t.assert_true((buf1(i = i + 1)? == buf2(j = j + 1)?))
       end
-      let buf4 = buf1.slice(0, 4)
+      let buf4: Buffer = buf1.slice(0, 4)
       t.assert_true(buf4(1)? == buf1(1)?)
       t.assert_true(buf4(3)? == buf1(3)?)
       let buf5: Buffer = buf2.clone()
       t.assert_true(buf5 == buf2)
       t.assert_false(buf5 is buf2)
-      let buf8 = buf6 xor buf7
+      let buf8: Buffer = buf6 xor buf7
       t.assert_true(buf8 == buf6)
-      let buf9 = Buffer([0;0;0;0;0;0])
-      let buf10 = Buffer([1;1;1;1;1;1;1])
-      let buf11 = buf9 and buf10
-      let buf12 = buf9 or buf10
-      let buf13 = Buffer([1;1;1;1;1;1])
-      let buf14 =  not buf13
+      let buf9: Buffer = Buffer([0;0;0;0;0;0])
+      let buf10: Buffer = Buffer([1;1;1;1;1;1;1])
+      let buf11: Buffer = buf9 and buf10
+      let buf12: Buffer = buf9 or buf10
+      let buf13: Buffer = Buffer([1;1;1;1;1;1])
+      let buf14: Buffer =  not buf13
       t.log(buf14.string())
       t.assert_true(buf11 == buf9)
       t.assert_true(Buffer([254;254;254;254;254;254]) == buf14)
