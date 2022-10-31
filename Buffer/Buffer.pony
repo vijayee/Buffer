@@ -24,9 +24,13 @@ class Buffer
       | let size': USize =>
         Array[U8](size')
     end
+
   new val fromArray(data': Array[U8] val) =>
     data = Array[U8](data'.size())
     data'.copy_to(data,0,0,data'.size())
+
+  new init(size': USize, value: U8) =>
+    data = Array[U8].init(value, size')
 
   fun apply(i: USize) : U8 ? =>
     data(i)?

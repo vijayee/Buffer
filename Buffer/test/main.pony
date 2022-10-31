@@ -47,6 +47,9 @@ class iso _TestBuffer is UnitTest
       t.log(buf14.string())
       t.assert_true(buf11 == buf9)
       t.assert_true(Buffer([254;254;254;254;254;254]) == buf14)
+      let buf15 = Buffer([0;0;0;0])
+      let buf16 = Buffer.init(4, 0)
+      t.assert_true(buf15 == buf16)
     else
       t.fail("error")
     end
